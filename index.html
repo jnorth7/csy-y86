@@ -39,14 +39,82 @@ Stack:
       <button>Stop</button>
       <button>Step</button>
       <button>Reset</button>
+      <br>
+      Simulator Speed (seconds per instruction, 0-5): <input type="range" min="0" max="5" value="3">
     </fieldset>
     <!-- Simulator Speed -->
     <fieldset>
-      <legend>Simulator Speed (seconds per instruction, 0-5)</legend>
-      <input type="range" min="0" max="5" value="3" class="slider" id="myRange">
+      <legend>Processor State</legend>
+      Program Counter: <code>0</code><br>
+      Stat: <code>AOK</code><br>
+      Register File:
+      <table>
+        <tr>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+          <th>%rax</th>
+        </tr>
+        <tr>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+        </tr>
+      </table>
+      Condition Codes:
+      <table>
+        <tr>
+          <th>Z</th>
+          <th>S</th>
+          <th>O</th>
+        </tr>
+        <tr>
+          <td>?</td>
+          <td>?</td>
+          <td>?</td>
+        </tr>
+      </table>
     </fieldset>
     <!-- Stages (left off here)-->
-
+    <fieldset>
+      <legend>Fetch Stage</legend>
+      instr: <code>?</code><br>
+      rA: <code>?</code><br>
+      rB: <code>?</code><br>
+      valC: <code>?</code><br>
+      valP: <code>?</code><br>
+    </fieldset>
+    <fieldset>
+      <legend>Decode Stage</legend>
+      valA: <code>?</code><br>
+      valB: <code>?</code><br>
+      dstE: <code>?</code><br>
+      dstM: <code>?</code><br>
+      srcA: <code>?</code><br>
+      srcB: <code>?</code><br>
+    </fieldset>
+    <fieldset>
+      <legend>Execute Stage</legend>
+      Cnd: <code>?</code><br>
+      valE: <code>?</code><br>
+    </fieldset>
+    <fieldset>
+      <legend>Memory Stage</legend>
+      valM: <code>?</code><br>
+    </fieldset>
+    <fieldset>
+      <legend>PC Update Stage</legend>
+      newPC: <code>?</code><br>
+    </fieldset>
     <hr>
     <h2>About this Assembler</h2>
     <h3 id="running">Running</h3>
@@ -104,6 +172,11 @@ body {
 
 .err {
   color: red;
+}
+
+table, th, td {
+  border-collapse: collapse;
+  border-style: solid;
 }
     </style>
   </body>
