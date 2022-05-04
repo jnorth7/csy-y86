@@ -28,8 +28,26 @@ Stack:
     </textarea>
     <br></br>
     <button class="assemble">Assemble</button>
-    <h2>Output (Y86 Machine Language)</h2>
+    <h2>Memory</h2>
     <pre class="output">Click "assemble" for output</pre>
+    <h2>Processor</h2>
+    <!-- processor controls -->
+    <fieldset>
+      <legend>Processor Controls</legend>
+      <button>Quit</button>
+      <button>Go</button>
+      <button>Stop</button>
+      <button>Step</button>
+      <button>Reset</button>
+    </fieldset>
+    <!-- Simulator Speed -->
+    <fieldset>
+      <legend>Simulator Speed (seconds per instruction, 0-5)</legend>
+      <input type="range" min="0" max="5" value="3" class="slider" id="myRange">
+    </fieldset>
+    <!-- Stages (left off here)-->
+
+    <hr>
     <h2>About this Assembler</h2>
     <h3 id="running">Running</h3>
 <ul>
@@ -65,7 +83,7 @@ Stack:
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/gas/gas.min.js" integrity="sha512-PbDvBglqpQnvBSqmQ+XPS/SeqXVSpKWz/FjSSQsvMWmIShCyhi7+srYPx5M2FCeTf4Fv9wIpX75m3N3tljctdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- assignment code -->
     <script src="assembler.js"></script>
     <script src="main.js"></script>
