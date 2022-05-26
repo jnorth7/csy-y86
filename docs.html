@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Documentation</title>
+</head>
+<body>
+    <h1>Y86 Assembler and Processor</h1>
+    <h3>OCS35 Assignment, Trisha Vidyanand and Jake North</h3>
+    <hr>
+    <h2>About the Assembler</h2>
+    <h3 id="running">Running</h3>
+    <ul>
+    <li>Main program code is in assembler.js<ul>
+    <li>The <code>Assembler</code> class takes a code string in its constructor, and calling the <code>assemble</code> method will return a <code>ByteList</code> of the memory output. To see this in hex form, call the <code>toHex</code> method of the <code>ByteList</code>.<ul>
+    <li>Example: <code>(new Assembler(&quot;irmovq 5, %rax&quot;)).assemble().toHex()</code></li>
+    </ul>
+    </li>
+    <li>If the assembler encounters a syntax error, it will throw a JS error with a message describing the problem and line number.</li>
+    </ul>
+    </li>
+    <li>The web interface is in <code>index.html</code>.</li>
+    </ul>
+    <h3 id="assumptions">Assumptions</h3>
+    <ul>
+    <li>All ints are 8 bytes</li>
+    <li>Align on 8-byte boundaries</li>
+    <li>All instructions padded to 16 bytes</li>
+    <li>Numbers are little-endian</li>
+    <li>since registers are 8 bytes, rrmovq instead of rrmovl etc<ul>
+    <li>and registars are %rax instead of %eax</li>
+    <li>and addq instead of addl, etc</li>
+    </ul>
+    </li>
+    </ul>
+    
+    <h2>About the Processor</h2>
+    <h3>Running</h3>
+    <li>Main program code is in processor.js</li>
+    <h2>Assumptions</h2>
+    <li>Assembly takes the form output by our Part 1 assembler</li>
+    <h2>Conventions</h2>
+    <li>Instr output does not include ifun</li>
+    <li>All processor state values are in decimal</li>
+    
+    <h2 id="citations">Citations</h2>
+    <ul>
+    <li>Syntax highlighting in the web interface is done using <a href="https://codemirror.net">CodeMirror</a>.</li>
+    <li>CSS styles for the web interface are derived from a stylesheet that I use for personal projects</li>
+    </ul>
+</body>
+</html>

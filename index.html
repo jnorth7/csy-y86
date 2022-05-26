@@ -20,10 +20,10 @@
         <div class="subheader subheader-app">
           <div class="left">
             <h2 class="ib white rel"> Y86 Processor </h2>
-            <div class="btn btn-outline" onclick="viewDocs()"> View Documentation </div>
+            <div class="btn btn-outline" onclick="nav('/docs.html')"> View Documentation </div>
           </div>
           <div class="right">
-            <div class="btn btn-white"> Download Assembly </div>
+            <div class="btn btn-white" onclick="downloadAssembly()"> Download Assembly </div>
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@ ret
 Stack:
           </textarea>
           <center><br>
-            <div class="btn btn-primary" onclick="">Assemble</div>
+            <div class="btn btn-primary assemble">Assemble</div>
           </center>
         </div>
         <!-- Memory Bar -->
@@ -58,16 +58,19 @@ Stack:
           <center>
             <h2>Memory</h2><br>
           </center>
-          <pre>30 f4 00 01 00 00 00 00 00 00 00 00 00 00 00 00 30 f5 00 01 00 00 00 00 00 00 00 00 00 00 00 00 80 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</pre>
+          <pre class="output">Press "Assemble" to write to memory.</pre>
         </div>
         <!-- Processor Bar -->
-        <div class="padded-main card flex">
+        <div class="padded-main card flex processor">
           <center>
             <h2>Processor</h2><br>
           </center>
           <!-- Controls -->
-          <a>Go</a> | <a>Quit</a> | <a>Stop</a> | <a>Step</a> | <a>Reset</a><br>
-          <span>Simulator Speed: </span> <input type="range" min="0" max="5" value="3">
+          <center>
+            <span class="btn btn-primary step">Step</span>
+            <span class="btn btn-primary reset">Reset</span>
+          </center>
+          <!-- <span>Simulator Speed: </span> <input type="range" min="0" max="5" value="3"> -->
           <br><br>
           <!-- State -->
           <center>
@@ -79,10 +82,10 @@ Stack:
               <th class="stage">PC Update Stage</th>
             </tr>
             <tr>
-              <th>newPC</th>
+              <th>newPC (address)</th>
             </tr>
             <tr>
-              <td>?</td>
+              <td class="newPC">?</td>
             </tr>
           </table>
           <table>
@@ -94,7 +97,7 @@ Stack:
               <th>valM</th>
             </tr>
             <tr>
-              <td>?</td>
+              <td class="valM">?</td>
             </tr>
           </table>
           <table>
@@ -106,7 +109,7 @@ Stack:
               <th>Cnd</th><th>valE</th>
             </tr>
             <tr>
-              <td>?</td><td>?</td>
+              <td class="Cnd">?</td><td class="valE">?</td>
             </tr>
           </table>
           <table>
@@ -118,7 +121,9 @@ Stack:
               <th>valA</th><th>valB</th><th>dstE</th><th>dstM</th><th>srcA</th><th>srcB</th>
             </tr>
             <tr>
-              <td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td>
+              <td class="valA">?</td><td class="valB">?</td>
+              <td class="dstE">?</td><td class="dstM">?</td>
+              <td class="srcA">?</td><td class="srcB">?</td>
             </tr>
           </table>
           <table>
@@ -130,7 +135,9 @@ Stack:
               <th>Instr</th><th>rA</th><th>rB</th><th>valC</th><th>valP</th>
             </tr>
             <tr>
-              <td>?</td><td>?</td><td>?</td><td>?</td><td>?</td>
+              <td class="Instr">?</td><td class="rA">?</td>
+              <td class="rB">?</td><td class="valC">?</td>
+              <td class="valP">?</td>
             </tr>
           </table>
           <br>
@@ -141,17 +148,20 @@ Stack:
             <!-- Registers -->
             <tr>
               <th>%rax</th><th>%rcx</th><th>%rdx</th><th>%rbx</th>
-              <th>%rsp</th><th>%rsi</th><th>%rsi</th><th>%rdi</th>
+              <th>%rsp</th><th>%rbp</th><th>%rsi</th><th>%rdi</th>
             </tr>
             <tr>
-              <td>?</td><td>?</td><td>?</td><td>?</td>
-              <td>?</td><td>?</td><td>?</td><td>?</td>
+              <td class="rax">?</td><td class="rcx">?</td>
+              <td class="rdx">?</td><td class="rbx">?</td>
+              <td class="rsp">?</td><td class="rbp">?</td>
+              <td class="rsi">?</td><td class="rdi">?</td>
             </tr>
           </table>
           <!-- Stat, Codes -->
           <br><br>
-          <b>Stat: </b><span>AOK</span> <br>
-          <b>Condition Codes: </b> Z <span>0</span> | S <span>0</span> | O <span>0</span>
+          <b>Stat: </b><span class="Stat">AOK</span> <br>
+          <b>Condition Codes: </b> Z <span class="Z">0</span>
+          | S <span class="S">0</span> | O <span class="O">0</span>
         </div>
     <!-- Scripts -->
     <!-- codemirror -->
@@ -160,6 +170,7 @@ Stack:
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/gas/gas.min.js" integrity="sha512-PbDvBglqpQnvBSqmQ+XPS/SeqXVSpKWz/FjSSQsvMWmIShCyhi7+srYPx5M2FCeTf4Fv9wIpX75m3N3tljctdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- custom -->
     <script src="assembler.js"></script>
+    <script src="processor.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

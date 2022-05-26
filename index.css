@@ -1,3 +1,18 @@
+/* Modified CSS stylesheet for */
+/* personal projects - JN */
+
+.err {
+  color:red;
+}
+
+.blocked {
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.blocked * {
+  pointer-events: none;
+}
 
 /* Page Layout */
 .page {
@@ -33,6 +48,10 @@ pre {
   white-space: pre-wrap;
 }
 
+.processor {
+  min-width: 500px;
+}
+
 .processor-bar {
   width:400px;
   min-width: 400px;
@@ -42,107 +61,7 @@ pre {
 .flex {
   flex: 1;
 }
-.graph-canvas {
-  height:680px;
-  width:680px;
-  display:inline-block;
-}
-.object {
-  border-radius: 15px;
-  border-style:solid;
-  border-color: var(--theme-color);
-  padding:10px;
-  position: relative;
-}
-.btn-delete {
-  position: absolute;
-  top:10px;
-  right:10px;
-}
 
-#my-math-box {
-  width:800px;
-  height:800px;
-}
-
-.mathInput {
-/*  background-color: blue;
-  border-style: solid;
-
-  display: inline-block;
-  padding: 15px;
-  border-radius: var(--small-radius) !important;
-  border-color: black !important;
-  border-width: 2px !important;
-  box-shadow: none !important;
-  font-size: 25px;
-  width:800px;
-  margin:0px;
-  box-sizing: border-box;*/
-}
-
-.dg.main.a {
-  display: none;
-}
-
-.pal-container {
-  position: absolute;
-  top:0px;
-  left:0px;
-  right:0px;
-  bottom: 0px;
-  z-index: 100;
-  background-color: rgba(0,0,0,0.4);
-  text-align: center;
-  padding-top: 110px;
-}
-
-.pal {
-  background-color: white;
-  display: inline-block;
-  width: 600px;
-  text-align: left;
-  position: relative;
-}
-
-.pal-input {
-  width: 100%;
-  font-size: 18px;
-  font-family: Roboto;
-  padding: 10px;
-}
-
-.pal-actions {
-
-}
-.pal-action {
-  cursor: pointer;
-  font-family: Poppins;
-  margin:10px;
-  color:var(--theme-color);
-  text-decoration: underline;
-}
-.pal-highlight {
-  background-color: lightblue;
-}
-
-#my-math-box {
-  /*width:100%;*/
-  /*height:100%;*/
-  position: absolute;
-  top:0px;
-  height:auto;
-  width:auto;
-  left: 0px;
-  right:0px;
-  bottom: 0px;
-}
-
-.mathbox-container {
-    width:100%;
-    height:100%;
-    position:absolute;
-}
 .frozen {
     pointer-events:none;
 }

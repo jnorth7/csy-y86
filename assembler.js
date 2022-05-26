@@ -52,6 +52,34 @@ class ByteList {
     }
     return out;
   }
+
+  // read a single byte (unsigned val)
+  readByte() {
+    let out = this.bytes[this.cursor].unsignedValue;
+    this.cursor += 1;
+    return out;
+  }
+
+  // read a signed long
+  readSigned(width=8) {
+    let start = this.cursor
+    // read byte range
+    let bytes = this.bytes.slice(start, start+width);
+    // handle two's compliment
+    let n = BigInt(0);
+    let offset = 0n;
+    if ((bytes[0].unsignedValue & 0x80) != 0) {
+      offset = (BigInt(2) ** BigInt(width*8));
+    }
+    // reverse and add bytes
+    bytes.reverse();
+    for (let byte of bytes) {
+      n = n << 8n; // shift
+      n += BigInt(byte.unsignedValue) // add
+    }
+    this.cursor += width;
+    return n - offset;
+  }
 }
 
 // A stack of characters to read
@@ -431,3 +459,4 @@ class Assembler {
     }
   }
 }
+
