@@ -1,17 +1,40 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Y86 Assembler</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="theme.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/f8e9da742c.js" crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Y86 Assembler</h1>
-    <h3>OCS35 Assignment, Trisha Vidyanand and Jake North</h3>
-    <hr></hr>
-    <h2>Input (Y86 Assembly)</h2>
-    <textarea class="input">
+    <!-- Body -->
+    <div style="display:flex; flex-direction: column; height:100%;">
+      <!-- Header -->
+      <div class="header">
+        <div class="subheader subheader-app">
+          <div class="left">
+            <h2 class="ib white rel"> Y86 Processor </h2>
+            <div class="btn btn-outline" onclick="viewDocs()"> View Documentation </div>
+          </div>
+          <div class="right">
+            <div class="btn btn-white"> Download Assembly </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page padded-main">
+        <!-- Assembly Bar -->
+        <div class="padded-main card flex">
+          <center>
+            <h2>Assembly</h2><br>
+          </center>
+          <textarea class="input">
 .pos 0
 
 init:
@@ -25,159 +48,118 @@ ret
 
 .pos 0x100
 Stack:
-    </textarea>
-    <br></br>
-    <button class="assemble">Assemble</button>
-    <h2>Memory</h2>
-    <pre class="output">Click "assemble" for output</pre>
-    <h2>Processor</h2>
-    <!-- processor controls -->
-    <fieldset>
-      <legend>Processor Controls</legend>
-      <button>Quit</button>
-      <button>Go</button>
-      <button>Stop</button>
-      <button>Step</button>
-      <button>Reset</button>
-      <br>
-      Simulator Speed (seconds per instruction, 0-5): <input type="range" min="0" max="5" value="3">
-    </fieldset>
-    <!-- Simulator Speed -->
-    <fieldset>
-      <legend>Processor State</legend>
-      Program Counter: <code>0</code><br>
-      Stat: <code>AOK</code><br>
-      Register File:
-      <table>
-        <tr>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-          <th>%rax</th>
-        </tr>
-        <tr>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-        </tr>
-      </table>
-      Condition Codes:
-      <table>
-        <tr>
-          <th>Z</th>
-          <th>S</th>
-          <th>O</th>
-        </tr>
-        <tr>
-          <td>?</td>
-          <td>?</td>
-          <td>?</td>
-        </tr>
-      </table>
-    </fieldset>
-    <!-- Stages (left off here)-->
-    <fieldset>
-      <legend>Fetch Stage</legend>
-      instr: <code>?</code><br>
-      rA: <code>?</code><br>
-      rB: <code>?</code><br>
-      valC: <code>?</code><br>
-      valP: <code>?</code><br>
-    </fieldset>
-    <fieldset>
-      <legend>Decode Stage</legend>
-      valA: <code>?</code><br>
-      valB: <code>?</code><br>
-      dstE: <code>?</code><br>
-      dstM: <code>?</code><br>
-      srcA: <code>?</code><br>
-      srcB: <code>?</code><br>
-    </fieldset>
-    <fieldset>
-      <legend>Execute Stage</legend>
-      Cnd: <code>?</code><br>
-      valE: <code>?</code><br>
-    </fieldset>
-    <fieldset>
-      <legend>Memory Stage</legend>
-      valM: <code>?</code><br>
-    </fieldset>
-    <fieldset>
-      <legend>PC Update Stage</legend>
-      newPC: <code>?</code><br>
-    </fieldset>
-    <hr>
-    <h2>About this Assembler</h2>
-    <h3 id="running">Running</h3>
-<ul>
-<li>Main program code is in assembler.js<ul>
-<li>The <code>Assembler</code> class takes a code string in its constructor, and calling the <code>assemble</code> method will return a <code>ByteList</code> of the memory output. To see this in hex form, call the <code>toHex</code> method of the <code>ByteList</code>.<ul>
-<li>Example: <code>(new Assembler(&quot;irmovq 5, %rax&quot;)).assemble().toHex()</code></li>
-</ul>
-</li>
-<li>If the assembler encounters a syntax error, it will throw a JS error with a message describing the problem and line number.</li>
-</ul>
-</li>
-<li>The web interface is in <code>index.html</code>.</li>
-</ul>
-<h3 id="assumptions">Assumptions</h3>
-<ul>
-<li>All ints are 8 bytes</li>
-<li>Align on 8-byte boundaries</li>
-<li>All instructions padded to 16 bytes</li>
-<li>Numbers are little-endian</li>
-<li>since registers are 8 bytes, rrmovq instead of rrmovl etc<ul>
-<li>and registars are %rax instead of %eax</li>
-<li>and addq instead of addl, etc</li>
-</ul>
-</li>
-</ul>
-<h3 id="citations">Citations</h3>
-<ul>
-<li>Syntax highlighting in the web interface is done using <a href="https://codemirror.net">CodeMirror</a>.</li>
-</ul>
-
+          </textarea>
+          <center><br>
+            <div class="btn btn-primary" onclick="">Assemble</div>
+          </center>
+        </div>
+        <!-- Memory Bar -->
+        <div class="padded-main card flex">
+          <center>
+            <h2>Memory</h2><br>
+          </center>
+          <pre>30 f4 00 01 00 00 00 00 00 00 00 00 00 00 00 00 30 f5 00 01 00 00 00 00 00 00 00 00 00 00 00 00 80 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 90 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</pre>
+        </div>
+        <!-- Processor Bar -->
+        <div class="padded-main card flex">
+          <center>
+            <h2>Processor</h2><br>
+          </center>
+          <!-- Controls -->
+          <a>Go</a> | <a>Quit</a> | <a>Stop</a> | <a>Step</a> | <a>Reset</a><br>
+          <span>Simulator Speed: </span> <input type="range" min="0" max="5" value="3">
+          <br><br>
+          <!-- State -->
+          <center>
+            <h4>Processor State</h4>
+          </center>
+          <table>
+            <!-- PC Update -->
+            <tr>
+              <th class="stage">PC Update Stage</th>
+            </tr>
+            <tr>
+              <th>newPC</th>
+            </tr>
+            <tr>
+              <td>?</td>
+            </tr>
+          </table>
+          <table>
+            <!-- Memory -->
+            <tr>
+              <th class="stage">Memory Stage</th>
+            </tr>
+            <tr>
+              <th>valM</th>
+            </tr>
+            <tr>
+              <td>?</td>
+            </tr>
+          </table>
+          <table>
+            <!-- Execute -->
+            <tr>
+              <th class="stage" colspan="2">Execute Stage</th>
+            </tr>
+            <tr>
+              <th>Cnd</th><th>valE</th>
+            </tr>
+            <tr>
+              <td>?</td><td>?</td>
+            </tr>
+          </table>
+          <table>
+            <!-- Decode -->
+            <tr>
+              <th class="stage" colspan="6">Decode Stage</th>
+            </tr>
+            <tr>
+              <th>valA</th><th>valB</th><th>dstE</th><th>dstM</th><th>srcA</th><th>srcB</th>
+            </tr>
+            <tr>
+              <td>?</td><td>?</td><td>?</td><td>?</td><td>?</td><td>?</td>
+            </tr>
+          </table>
+          <table>
+            <!-- Fetch -->
+            <tr>
+              <th class="stage" colspan="5">Fetch Stage</th>
+            </tr>
+            <tr>
+              <th>Instr</th><th>rA</th><th>rB</th><th>valC</th><th>valP</th>
+            </tr>
+            <tr>
+              <td>?</td><td>?</td><td>?</td><td>?</td><td>?</td>
+            </tr>
+          </table>
+          <br>
+          <center>
+            <h4>Register File</h4>
+          </center>
+          <table>
+            <!-- Registers -->
+            <tr>
+              <th>%rax</th><th>%rcx</th><th>%rdx</th><th>%rbx</th>
+              <th>%rsp</th><th>%rsi</th><th>%rsi</th><th>%rdi</th>
+            </tr>
+            <tr>
+              <td>?</td><td>?</td><td>?</td><td>?</td>
+              <td>?</td><td>?</td><td>?</td><td>?</td>
+            </tr>
+          </table>
+          <!-- Stat, Codes -->
+          <br><br>
+          <b>Stat: </b><span>AOK</span> <br>
+          <b>Condition Codes: </b> Z <span>0</span> | S <span>0</span> | O <span>0</span>
+        </div>
+    <!-- Scripts -->
     <!-- codemirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js" integrity="sha512-xwrAU5yhWwdTvvmMNheFn9IyuDbl/Kyghz2J3wQRDR8tyNmT8ZIYOd0V3iPYY/g4XdNPy0n/g0NvqGu9f0fPJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css" integrity="sha512-uf06llspW44/LZpHzHT6qBOIVODjWtv4MxCricRxkzvopAlSWnTf6hpZTFxuuZcuNE9CBQhqE0Seu1CoRk84nQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/gas/gas.min.js" integrity="sha512-PbDvBglqpQnvBSqmQ+XPS/SeqXVSpKWz/FjSSQsvMWmIShCyhi7+srYPx5M2FCeTf4Fv9wIpX75m3N3tljctdA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- jquery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- assignment code -->
+    <!-- custom -->
     <script src="assembler.js"></script>
     <script src="main.js"></script>
-    <style>
-body {
-  font-family: Arial;
-}
-
-.CodeMirror {
-  border-style:solid !important;
-  height: 400px;
-}
-
-.output {
-  white-space: pre-wrap;
-  width: 500px;
-}
-
-.err {
-  color: red;
-}
-
-table, th, td {
-  border-collapse: collapse;
-  border-style: solid;
-}
-    </style>
   </body>
 </html>
