@@ -30,6 +30,7 @@ class ByteList {
 
   // move cursor, filling in 00s as needed
   seek(i) {
+    i = Number(i);
     for (let j=this.cursor; j<i; j++) {
       if (!this.bytes[j]) {
         this.bytes[j] = new Byte(0);
@@ -42,6 +43,23 @@ class ByteList {
   write(byte) {
     this.bytes[this.cursor] = byte;
     this.cursor += 1;
+  }
+
+  // convert a bigint to an array of 8 little-endian bytes
+  longToBytes(n) {
+    let bytes = [];
+    for (let i = 0; i <= 7*8; i += 8) {
+      bytes.push(new Byte(Number((BigInt(n) >> BigInt(i)) & 0xFFn)));
+
+    }
+    return bytes;
+  }
+
+  // write a long using longToBytes, no targets here
+  writeLong(n) {
+    for (let byte of this.longToBytes(n)) {
+      this.write(byte);
+    }
   }
 
   // convert to hex string
