@@ -30,6 +30,10 @@ class ByteList {
 
   // move cursor, filling in 00s as needed
   seek(i) {
+    const MAX_I = 10000 // prevent crashes by going to bad addresses
+    if (i > MAX_I) {
+      throw new Error(`Illegal memory seek\nTarget address ${i} > max address ${MAX_I}`);
+    }
     i = Number(i);
     for (let j=this.cursor; j<i; j++) {
       if (!this.bytes[j]) {
@@ -80,13 +84,16 @@ class ByteList {
 
   // read a signed long
   readSigned(width=8) {
+    // pad with 0s
+    this.seek(this.cursor + width);
+    this.seek(this.cursor - width);
     let start = this.cursor
     // read byte range
     let bytes = this.bytes.slice(start, start+width);
     // handle two's compliment
     let n = BigInt(0);
     let offset = 0n;
-    if ((bytes[0].unsignedValue & 0x80) != 0) {
+    if ((bytes[width-1].unsignedValue & 0x01) != 0) {
       offset = (BigInt(2) ** BigInt(width*8));
     }
     // reverse and add bytes
@@ -177,7 +184,7 @@ class Assembler {
       }
       this.writeLong(BigInt(this.labels[label]));
     }
-    
+    console.log(this.labels, this.targets);
     // return bytes in memory
     return this.mem
   }
@@ -392,7 +399,7 @@ class Assembler {
       let n = this.readInt();
       this.writeLong(n);
       // backtrack to alignment
-      this.mem.seek(this.mem.cursor + (this.align - 8))
+      // this.mem.seek(this.mem.cursor + (this.align - 8))
     }
   }
 

@@ -78,25 +78,42 @@ class Processor {
     $(".output").text(this.mem.toHex());
   }
 
+  run() {
+    // capped at 1k instructions to prevent
+    // crashes from infinite loops
+    for (let i=0; i<1000; i++) {
+      this.step();
+    }
+  }
+
   step() {    
     // exit if not AOK
     if (this.state.Stat != "AOK") {
       return;
     }
 
-    // feed forward PC
-    this.state.PC = this.state.newPC;
+    // wrap in err processor
+    try {
+      // feed forward PC
+      this.state.PC = this.state.newPC;
 
-    // processing sequence
-    this.fetch();
-    this.decode();
-    this.execute();
-    this.memory();
-    this.writeBack();
-    this.pcUpdate();
+      // processing sequence
+      this.fetch();
+      this.decode();
+      this.execute();
+      this.memory();
+      this.writeBack();
+      this.pcUpdate();
 
-    // re-render
-    this.render();
+      // re-render
+      this.render();
+    } catch (e) {
+      this.state.Stat = "ERR"
+      $(".output").addClass("err")
+      $(".output").text("Processor Error\n---------------\n" + e.toString());
+      validAssembly = false;
+      reset();
+    }
   }
 
   fetch() {

@@ -43,10 +43,28 @@ irmovq Stack, %rbp
 call Main
 halt
 
+array:
+.long 10
+.long 200
+.long 3000
+
 Main:
+# decr %rbx from 2*8 to 0
+irmovq 16, %rbx
+# loop body
+loop:
+call Sum
+irmovq -8, %rcx
+addq %rcx, %rbx
+jge loop
 ret
 
-.pos 0x100
+Sum:
+mrmovq array(%rbx), %rdx
+addq %rdx, %rax
+ret
+
+.pos 0x200
 Stack:
           </textarea>
           <center><br>
@@ -69,6 +87,7 @@ Stack:
           <center>
             <span class="btn btn-primary step">Step</span>
             <span class="btn btn-primary reset">Reset</span>
+            <span class="btn btn-primary" onclick="processor.run()">Run</span>
           </center>
           <!-- <span>Simulator Speed: </span> <input type="range" min="0" max="5" value="3"> -->
           <br><br>

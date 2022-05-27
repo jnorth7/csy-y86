@@ -2,6 +2,15 @@
 <html>
 <head>
   <title>Documentation</title>
+<style>
+* {
+    font-family: sans-serif;
+}
+
+h2 {
+    text-align:center;
+}
+</style>
 </head>
 <body>
     <h1>Y86 Assembler and Processor</h1>
@@ -36,11 +45,12 @@
     <h2>About the Processor</h2>
     <h3>Running</h3>
     <li>Main program code is in processor.js</li>
-    <h2>Assumptions</h2>
-    <li>Assembly takes the form output by our Part 1 assembler</li>
-    <h2>Conventions</h2>
-    <li>Instr output does not include ifun</li>
+    <h3>Assumptions</h3>
+    <li>Assembly takes the form of padded output by our Part 1 assembler</li>
+    <h3>Conventions</h3>
     <li>All processor state values are in decimal</li>
+    <li>2's compliment overflow cannot occur, since JS BigInts are used internally</li>
+    <li>Addresses over 10,000 are illegal, since seeking addresses that large is usually the result of an error and may crash the proccessor. While our ByteArray class is designed to scale automatically, scaling it to an absurd value would reqire enough actual memory to reach the maximum pointer.</li>
     
     <h2 id="citations">Citations</h2>
     <ul>
